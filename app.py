@@ -2,6 +2,12 @@ from flask import Flask,jsonify, request
 from model import db, Sitios
 from logging import exception
 
+# SQLAlchemy es un Object-Relational Mapper /
+# Mapping-tool, o un ORM, es decir una librería que los 
+# desarrolladores utilizan para crear bases de datos y 
+# manipular sus datos sin la necesidad de conocer / usar SQL.
+
+
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database\\sitios.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
