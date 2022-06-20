@@ -27,6 +27,9 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+
+    <!-- SWEET ALERTS  -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <section id="navbar">
@@ -276,8 +279,28 @@
           url: "/sitios/status",
           type: "GET",
           beforeSend: function () {
-            console.log("carga status");
-            $("#loader").removeClass("visually-hidden");
+            let timerInterval;
+            Swal.fire({
+              title: "Espera mientras se hace la magia!",
+              html: "Esto no tardará mucho",
+              // timer: 2000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading();
+                const b = Swal.getHtmlContainer().querySelector("b");
+                timerInterval = setInterval(() => {
+                  b.textContent = Swal.getTimerLeft();
+                }, 100);
+              },
+              willClose: () => {
+                clearInterval(timerInterval);
+              },
+            }).then((result) => {
+              /* Read more about handling dismissals below */
+              if (result.dismiss === Swal.DismissReason.timer) {
+                console.log("I was closed by the timer");
+              }
+            });
           },
           success: function (response) {
             data = JSON.parse(response);
@@ -303,8 +326,11 @@
             console.log(error);
           },
           complete: function () {
-            $("#loader").addClass("visually-hidden");
-            console.log("completo");
+            Swal.hideLoading();
+            const b = Swal.getHtmlContainer().querySelector("b");
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft();
+            }, 100);
           },
         });
       }
@@ -341,11 +367,11 @@
             },
           });
         });
+      });
 
-        //   funcion de validar sitios registrados
-        $("#validar").click(function () {
-          cargarTablaStatus();
-        });
+      //   funcion de validar sitios registrados
+      $("#validar").click(function () {
+        cargarTablaStatus();
       });
     </script>
   </body>
