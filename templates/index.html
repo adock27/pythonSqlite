@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+
+    <!-- bootstrap css  -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <!-- google fonts  -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+
+      body {
+        font-family: "Work Sans", sans-serif;
+      }
+    </style>
+
+    <!-- jquery-3  -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section id="navbar">
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </section>
+
+    <div class="container mt-5">
+      <!-- Button trigger modal -->
+      <button
+        type="button"
+        class="btn btn-primary btn-sm rounded-pill"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        Agregar un nuevo sitio
+      </button>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        data-bs-backdrop="static"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Agregar un nuevo sitio
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="formulario" method="post">
+                <!-- campo para nombre  -->
+                <label for="nombre">Nombre</label>
+                <input
+                  name="nombre"
+                  id="nombre"
+                  class="form-control"
+                  type="text"
+                />
+                <!-- campo para url  -->
+                <label for="url">Url Sitio Web</label>
+                <input name="url" id="url" class="form-control" type="url" />
+
+                <div class="mt-3">
+                  <!-- cerrar boton  -->
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+
+                  <!-- boton para guardar  -->
+                  <button
+                    id="guardar"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                    type="submit"
+                  >
+                    Resgistrar sitio
+                    <span
+                      id="loader"
+                      class="spinner-border spinner-border-sm visually-hidden"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tabla" class="container mt-5">
+      <table class="table table-borderless table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Sitio</th>
+            <th scope="col">Url</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody id="data"></tbody>
+      </table>
+    </div>
+
+    <div id="opciones" class="container mt-5">
+      <button id="validar" type="button" class="btn btn-success">
+        Validar sitios
+        <span
+          id="loader"
+          class="spinner-border spinner-border-sm visually-hidden"
+          role="status"
+          aria-hidden="true"
+        ></span>
+      </button>
+    </div>
+
+    <div id="tabla1" class="container mt-5">
+      <table class="table table-borderless table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Sitio</th>
+            <th scope="col">Url</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody id="data1"></tbody>
+      </table>
+    </div>
+
+    <!-- Bootstrap js   -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- codigos  -->
+
+    <script>
+      // cargarTabla
+      function cargarTabla() {
+        $.ajax({
+          async: true,
+          cache: false,
+          dataType: "html",
+          url: "/sitios",
+          type: "GET",
+          beforeSend: function () {
+            console.log("carga");
+          },
+
+          success: function (response) {
+            data = JSON.parse(response);
+            console.log(data);
+            $("#data").empty();
+            for (const key in data) {
+              $("#data").append(
+                "<tr>" +
+                  '<th scope="col">' +
+                  data[key].nombre +
+                  "</th>" +
+                  '<th scope="col">' +
+                  data[key].url +
+                  "</th>" +
+                  '<th scope="col">' +
+                  "vamos a ve" +
+                  "</th>" +
+                  '<th scope="col">' +
+                  '<a class="btn btn-danger btn-sm rounded-pill" href="/sitios/delete/' +
+                  data[key].rowid +
+                  '" role="button">Borrar</a>' +
+                  "</th>" +
+                  "</tr>"
+              );
+            }
+          },
+          error: function (error) {
+            console.log(error);
+          },
+          complete: function () {
+            console.log("completo");
+          },
+        });
+      }
+
+      // cargarTabla
+      function cargarTablaStatus() {
+        $.ajax({
+          async: true,
+          cache: false,
+          dataType: "html",
+          url: "/sitios/status",
+          type: "GET",
+          beforeSend: function () {
+            console.log("carga status");
+            $("#loader").removeClass("visually-hidden");
+          },
+          success: function (response) {
+            data = JSON.parse(response);
+            console.log(data);
+            $("#data1").empty();
+            for (const key in data) {
+              $("#data1").append(
+                "<tr>" +
+                  '<th scope="col">' +
+                  data[key].nombre +
+                  "</th>" +
+                  '<th scope="col">' +
+                  data[key].url +
+                  "</th>" +
+                  '<th scope="col">' +
+                  data[key].estado +
+                  "</th>" +
+                  "</tr>"
+              );
+            }
+          },
+          error: function (error) {
+            console.log(error);
+          },
+          complete: function () {
+            $("#loader").addClass("visually-hidden");
+            console.log("completo");
+          },
+        });
+      }
+
+      //  cargarTabla al iniciar el sitio
+      $(document).ready(function () {
+        cargarTabla();
+      });
+
+      // guardar datos desde el formulario
+      $(function () {
+        $("#formulario").submit(function (e) {
+          e.preventDefault();
+          $.ajax({
+            async: true,
+            cache: false,
+            dataType: "html",
+            url: "/sitios/save",
+            data: $("form").serialize(),
+            type: "POST",
+            beforeSend: function () {
+              console.log("carga");
+            },
+
+            success: function (response) {
+              dataSets = JSON.parse(response);
+              cargarTabla();
+            },
+            error: function (error) {
+              console.log(error);
+            },
+            complete: function () {
+              console.log("completo");
+            },
+          });
+        });
+
+        //   funcion de validar sitios registrados
+        $("#validar").click(function () {
+          cargarTablaStatus();
+        });
+      });
+    </script>
+  </body>
+</html>
